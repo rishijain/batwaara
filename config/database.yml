@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  database: rxm_dev
+  pool: 5
+  host: localhost
+
+test:
+  adapter: postgresql
+  database: rxm_test
+  pool: 5
+  host: localhost
+
+staging:
+  adapter: postgresql
+  database: rxm_stage
+  pool: 5
+  host: localhost
+
+production:
+  adapter: postgresql
+  database: rxm_prod
+  pool: 5
+  host: localhost
