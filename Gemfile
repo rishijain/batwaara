@@ -44,3 +44,4 @@ group :development do
   gem 'spring'
 end
 
+gem 'aasm', '4.9.0'
