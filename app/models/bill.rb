@@ -1,6 +1,9 @@
 class Bill < ActiveRecord::Base
   include AASM
 
+  has_many :transactions
+  belongs_to :event
+
   aasm do
 
     state :draft, initial: true
@@ -12,10 +15,12 @@ class Bill < ActiveRecord::Base
 
   end
 
-  has_many :transactions
-  belongs_to :event
 
   def members
     User.find(member_ids)
+  end
+
+  def paid_to
+    paid_to_id ? User.find(paid_to_id) : nil
   end
 end
