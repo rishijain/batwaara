@@ -47,3 +47,4 @@ end
 gem 'aasm', '4.9.0'
 gem 'devise', '3.4.1'
 gem 'bootstrap-sass'
+gem 'simple_form'

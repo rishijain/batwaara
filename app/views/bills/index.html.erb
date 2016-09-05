@@ -1,0 +1,24 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Event Name</th>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>State</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%- @bills.each do |bill| %>
+      <tr>
+        <td><%= bill.event.name %></td>
+        <td><%= datetime_modifier(bill.created_at) %></td>
+        <td><%= bill.amount %></td>
+        <td><%= bill.aasm_state %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>

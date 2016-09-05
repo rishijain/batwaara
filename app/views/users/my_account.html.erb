@@ -1,0 +1,20 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%- @from_ledger.each do |ledger| %>
+      <tr>
+        <td><%= from_ledger_modifier(ledger) %></td>
+      </tr>
+    <% end %>
+    <%- @to_ledger.each do |ledger| %>
+      <tr>
+        <td><%= to_ledger_modifier(ledger) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>

@@ -7,4 +7,9 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
 
   has_many :transactions
+
+  def bills
+    Bill.where("'#{id}' = ANY (member_ids)")
+  end
+
 end
