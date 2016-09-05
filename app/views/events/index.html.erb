@@ -1,5 +1,18 @@
-<p>Events</p>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 
-<%= @events.each do |event| %>
-  <p><%= event.name %></p>
-<% end %>
+  <tbody>
+    <%- @events.each do |event| %>
+      <tr>
+        <td><%= event.name %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
