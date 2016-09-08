@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   root 'users#my_account'
 
   resources :events
-  resources :bills
+  resources :bills do
+    member do
+      get 'transactions'
+    end
+  end
 
   get '/my_account', action: :my_account, controller: :users
 

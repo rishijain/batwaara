@@ -1,17 +1,3 @@
-<%= simple_form_for(@bill, html: { class: 'form-horizontal' }) do |f| %>
-  <div class="form-group col-xs-3">
-    <div class="col-sm-9">
-      <%= f.input :event_id, label_html: {class: 'form-control'}, label: 'Event name' %>
-    </div>
-  </div>
-  <div class="form-group col-xs-3">
-    <div class="col-sm-9">
-      <%= f.input :event_id, label_html: {class: 'form-control'}, label: 'Event name' %>
-    </div>
-  </div>
-  <div class="form-group col-xs-3">
-    <div class="col-sm-9">
-      <%= f.input :event_id, label_html: {class: 'form-control'}, label: 'Event name' %>
-    </div>
-  </div>
+<%= simple_form_for @bill, url: bills_url do |f| %>
+  <%= render 'form', :f => f %>
 <% end %>

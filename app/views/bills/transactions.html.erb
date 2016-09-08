@@ -1,0 +1,11 @@
+<%= form_for(@bill, url: bill_url) do |f| %>
+  <p>Event name: <%= @bill.event.name %></p>
+  <p>Event date: <%= datetime_modifier(@bill.event.created_at) %></p>
+  <%= f.fields_for :transactions do |transaction| %>
+    <p>
+    <%= transaction.text_field :amount_paid %>
+    <%= transaction.text_field :user_id %>
+    </p>
+  <% end %>
+  <%= f.submit %>
+<% end %>

@@ -10,6 +10,39 @@ class BillsController < ApplicationController
   end
 
   def create
+    @bill = Bill.new bill_params
+    if @bill.save
+      redirect_to bills_path
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+    @bill = Bill.find params[:id]
+  end
+
+  def transactions
+    @bill = Bill.find params[:id]
+    @bill.member_ids.each do |mem_id|
+      @bill.transactions.find_or_initialize_by(user_id: mem_id)
+    end
+  end
+
+  def update
+    @bill = Bill.find params[:id]
+    @bill.attributes = bill_params
+    if @bill.save
+      redirect_to bills_path
+    else
+      render 'transactions'
+    end
+  end
+
+  private
+
+  def bill_params
+    params.fetch(:bill, {}).permit(:event_id, :amount, member_ids: [], :transactions_attributes => [:amount_paid, :user_id, :id])
   end
 
 end

@@ -1,0 +1,4 @@
+<%= f.input :event_id, collection: Event.all.collect{|d| [d.name, d.id]} %>
+<%= f.input :amount %>
+<%= f.input :member_ids, as: :check_boxes, collection: User.all.collect{|d| [d.name, d.id]}%>
+<%= f.button :submit %>
