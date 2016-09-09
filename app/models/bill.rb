@@ -2,11 +2,12 @@ class Bill < ActiveRecord::Base
   include AASM
 
   has_many :transactions
+  has_many :users, through: :bill_users
+  has_many :bill_users
   belongs_to :event
+  belongs_to :created_by, class_name: User
 
   accepts_nested_attributes_for :transactions
-
-  before_save :strip_member_ids
 
   aasm do
 
@@ -20,15 +21,8 @@ class Bill < ActiveRecord::Base
   end
 
 
-  def members
-    User.find(member_ids)
-  end
-
   def paid_to
     paid_to_id ? User.find(paid_to_id) : nil
   end
 
-  def strip_member_ids
-    self.member_ids = self.member_ids.select(&:present?)
-  end
 end

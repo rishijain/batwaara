@@ -24,8 +24,8 @@ class BillsController < ApplicationController
 
   def transactions
     @bill = Bill.find params[:id]
-    @bill.member_ids.each do |mem_id|
-      @bill.transactions.find_or_initialize_by(user_id: mem_id)
+    @bill.user_ids.each do |user_id|
+      @bill.transactions.find_or_initialize_by(user_id: user_id)
     end
   end
 
@@ -42,7 +42,7 @@ class BillsController < ApplicationController
   private
 
   def bill_params
-    params.fetch(:bill, {}).permit(:event_id, :amount, member_ids: [], :transactions_attributes => [:amount_paid, :user_id, :id])
+    params.fetch(:bill, {}).permit(:event_id, :amount, user_ids: [], :transactions_attributes => [:amount_paid, :user_id, :id])
   end
 
 end

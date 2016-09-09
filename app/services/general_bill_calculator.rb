@@ -13,11 +13,11 @@ class GeneralBillCalculator
   private
 
   def per_head_share
-    @per_head_share = (@bill.amount / @bill.member_ids.count).round(2)
+    @per_head_share = (@bill.amount / @bill.user_ids.count).round(2)
   end
 
   def each_member_owes
-    @per_member_share = @bill.member_ids.inject({}) do |result, member_id|
+    @per_member_share = @bill.user_ids.inject({}) do |result, member_id|
       result[member_id] = total_amount_paid_by(member_id) - @per_head_share
       result
     end

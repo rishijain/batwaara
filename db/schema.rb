@@ -11,19 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905075754) do
+ActiveRecord::Schema.define(version: 20160909131257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bill_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "bill_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "bills", force: :cascade do |t|
     t.float    "amount"
     t.integer  "event_id"
     t.integer  "paid_to_id"
     t.string   "aasm_state"
-    t.text     "member_ids", default: [],              array: true
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "created_by_id"
   end
 
   create_table "events", force: :cascade do |t|

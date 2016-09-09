@@ -1,4 +1,4 @@
 <%= f.input :event_id, collection: Event.all.collect{|d| [d.name, d.id]} %>
 <%= f.input :amount %>
-<%= f.input :member_ids, as: :check_boxes, collection: User.all.collect{|d| [d.name, d.id]}%>
+<%= f.collection_check_boxes :user_ids, User.all.collect{|d| [d.name, d.id]}, :last, :first %>
 <%= f.button :submit %>
