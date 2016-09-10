@@ -12,6 +12,7 @@ end
 
 event = Event.find_by(name: 'Lunch')
 
+=begin
 b = Bill.create(event_id: event.id, member_ids: [1,2,3,4], amount: 400)
 t = Transaction.create(user_id: 1, amount_paid: 140, bill_id: b.id)
 t = Transaction.create(user_id: 2, amount_paid: 260, bill_id: b.id)
@@ -22,4 +23,5 @@ t = Transaction.create(user_id: 1, amount_paid: 360, bill_id: b.id)
 settlement_event = Event.find_by(name: 'Settlement')
 b = Bill.create(event_id: settlement_event.id, member_ids: [2,3], paid_to_id: 2, amount: 200)
 t = Transaction.create(user_id: 4, amount_paid: 200, bill_id: b.id)
+=end
 

@@ -1,3 +1,8 @@
-<%= simple_form_for @event, url: events_url do |f| %>
-  <%= render 'form', :f => f %>
-<% end %>
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4><%= t('.sign_in', :default => "New Event") %></h4>
+  </div>
+  <%= simple_form_for @event, url: events_url do |f| %>
+    <%= render 'form', :f => f %>
+  <% end %>
+</div>

@@ -1,12 +1,39 @@
-<%= simple_form_for(@bill, url: bill_url) do |f| %>
-  <p>Event name: <%= @bill.event.name %></p>
-  <p>Event date: <%= datetime_modifier(@bill.event.created_at) %></p>
-  <p>Bill Amount: <%= @bill.amount %></p>
-  <%= f.simple_fields_for :transactions do |transaction| %>
-    <%= transaction.input :amount_paid %>
-    <%= transaction.input :user_id, collection: @bill.users.collect{|d| [d.name, d.id]} %>
-  <% end %>
-  <%= f.button :submit, 'Update Transactions', class: 'btn btn-success' %>
-  <%= link_to 'Edit Bill', edit_bill_path(@bill), class: 'btn btn-primary'%>
-  <%= link_to 'Cancel', bills_path, class: 'btn btn-warning'%>
-<% end %>
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4><%= t('.sign_in', :default => "Bill Details") %></h4>
+  </div>
+  <div class="panel-body">
+    <p>Event name: <span class="weightText"><%= @bill.event.name %></span></p>
+    <p>Event date: <span class="weightText"><%= datetime_modifier(@bill.event.created_at) %></span></p>
+    <p>Bill Amount: <span class="weightText"><%= @bill.amount %></span></p>
+    <p>Bill Added By: <span class="weightText"><%= @bill.created_by.name%></span></p>
+    <p>Members: <span class="weightText"><%= @bill.users.collect(&:name).join(', ') %> </span></p>
+  </div>
+  <div class="panel-body">
+    <%= link_to 'Edit Bill', edit_bill_path(@bill), class: 'btn btn-primary'%>
+  </div>
+</div>
+
+
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4><%= t('.sign_in', :default => "Bill Transactions") %></h4>
+  </div>
+
+  <%= simple_form_for(@bill, url: bill_url) do |f| %>
+
+    <%= f.simple_fields_for :transactions do |transaction| %>
+      <div class="panel-body">
+        <%= transaction.input :amount_paid %>
+
+        <%= transaction.input :user_id, collection: @bill.users.collect{|d| [d.name, d.id]} %>
+      </div>
+    <% end %>
+
+    <div class="panel-body">
+      <%= f.button :submit, 'Update Transactions', class: 'btn btn-success' %>
+      <%= link_to 'Finalise Bill', finalise_bill_bill_path(@bill), class: 'btn btn-danger'%>
+      <%= link_to 'Cancel', bills_path, class: 'btn btn-warning'%>
+    <% end %>
+  </div>
+</div>

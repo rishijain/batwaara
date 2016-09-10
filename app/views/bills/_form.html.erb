@@ -1,10 +1,25 @@
-<%= f.hidden_field :created_by_id, value: current_user.id %>
-<%= f.input :event_id, collection: Event.all.collect{|d| [d.name, d.id]} %>
-<%= f.input :amount %>
-<%= f.collection_check_boxes :user_ids, User.all.collect{|d| [d.name, d.id]}, :last, :first %>
-<%= f.button :submit, 'Save',class: 'btn btn-success' %>
-<% if !@bill.new_record?%>
-  <%= link_to 'Transactions', transactions_bill_path(@bill), class: 'btn btn-primary'%>
-  <%= link_to 'Finalise Bill', finalise_bill_bill_path(@bill), class: 'btn btn-danger'%>
-<% end %>
-<%= link_to 'Cancel', bills_path, class: 'btn btn-warning'%>
+<div class="panel-body">
+  <%= f.hidden_field :created_by_id, value: current_user.id %>
+</div>
+
+<div class="panel-body">
+  <%= f.input :event_id, collection: Event.all.collect{|d| [d.name, d.id]} %>
+</div>
+
+<div class="panel-body">
+  <%= f.input :amount %>
+</div>
+
+<div class="panel-body">
+  <p class='weightText'>Members</p>
+  <%= f.collection_check_boxes :user_ids, User.all.collect{|d| [d.name, d.id]}, :last, :first%>
+</div>
+
+<div class="panel-body">
+  <%= f.button :submit, 'Save',class: 'btn btn-success' %>
+  <% if !@bill.new_record?%>
+    <%= link_to 'Add Transactions', transactions_bill_path(@bill), class: 'btn btn-primary'%>
+    <%= link_to 'Finalise Bill', finalise_bill_bill_path(@bill), class: 'btn btn-danger'%>
+  <% end %>
+  <%= link_to 'Cancel', bills_path, class: 'btn btn-warning'%>
+</div>

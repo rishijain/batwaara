@@ -1,4 +1,9 @@
-<%= link_to 'Add Bill', new_bill_path, class: 'btn btn-primary'%>
+<div class="panel panel-default devise-bs">
+  <div class="panel-heading">
+    <h4><%= t('.sign_in', :default => "Bills") %><%= link_to 'Add Bill', new_bill_path, class: 'btn btn-primary index_btn right_align'%></h4>
+  </div>
+</div>
+
 
 <table class="table table-bordered">
   <thead>

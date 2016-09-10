@@ -1,0 +1,38 @@
+.string {
+  padding-right: 15px;
+}
+
+label.select{
+  padding-right: 20px;
+}
+
+label.float{
+  padding-right: 5px;
+}
+
+label.collection_check_boxes{
+  padding-left: 10px;
+  font-weight: normal;
+}
+
+
+.index_btn {
+  margin-bottom: 10px;
+}
+
+.right_align{
+  float:right;
+}
+
+.weightText{
+  font-weight: bold;
+}
+
+.checkbox_container{
+  display: inline;
+}
+
+.panel-body span:after{
+  content:"\a";
+  white-space: pre;
+}
