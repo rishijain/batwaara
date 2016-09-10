@@ -46,11 +46,24 @@ class GeneralBillCalculator
     @per_member_share[receiver[0]] = (@per_member_share[receiver[0]] - amount_to_transfer).round(2)
     @per_member_share[sender_id] = (@per_member_share[sender_id] + amount_to_transfer).round(2)
 
-    l = Ledger.find_or_create_by(from_user_id: sender_id.to_i, to_user_id: receiver[0].to_i)
-    l.amount = l.amount + amount_to_transfer
-    l.save
+    l = find_ledger_object(sender_id.to_i, receiver[0].to_i)
+    update_ledger(l, sender_id.to_i, receiver[0].to_i, amount_to_transfer)
 
     send_money_from(sender_id)
   end
 
+  def find_ledger_object(user_1_id, user_2_id)
+    Ledger.find_by(from_user_id: user_1_id, to_user_id: user_2_id) ||
+    Ledger.find_by(from_user_id: user_2_id, to_user_id: user_1_id) ||
+    Ledger.create(from_user_id: user_1_id, to_user_id: user_2_id)
+  end
+
+  def update_ledger(l, user_1_id, user_2_id, amount_to_transfer)
+    if l.from_user_id == user_1_id
+      l.amount = l.amount + amount_to_transfer
+    else
+      l.amount = l.amount - amount_to_transfer
+    end
+    l.save
+  end
 end

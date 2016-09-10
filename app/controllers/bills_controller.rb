@@ -49,6 +49,7 @@ class BillsController < ApplicationController
 
   def approve_bill
     if @bill.approve!
+      ExpenseCalculator.new(@bill.id).manage
       flash[:success] = 'Bill successfulyy approved.'
       redirect_to bills_path
     else

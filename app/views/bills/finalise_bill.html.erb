@@ -2,6 +2,8 @@
 <p>Event date: <%= datetime_modifier(@bill.event.created_at) %></p>
 <p>Bill Amount: <%= @bill.amount %></p>
 
+<p>Members: <% @bill.users.each do |user| %> <p><%= user.name %></p> <% end %></p>
+
 
 <% @bill.transactions.each do |transaction|%>
   <p><%= transaction.user.name%> paid <%= transaction.amount_paid %></p>
