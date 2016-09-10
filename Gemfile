@@ -48,3 +48,7 @@ gem 'aasm', '4.9.0'
 gem 'devise', '3.4.1'
 gem 'bootstrap-sass'
 gem 'simple_form'
+
+gem 'rails_12factor', group: :production
+
+ruby "2.0.0"
