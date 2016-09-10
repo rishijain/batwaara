@@ -1,3 +1,5 @@
+<%= link_to 'Add Bill', new_bill_path, class: 'btn btn-primary'%>
+
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -5,6 +7,7 @@
       <th>Date</th>
       <th>Amount</th>
       <th>State</th>
+      <th>Added by</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -16,7 +19,8 @@
         <td><%= datetime_modifier(bill.created_at) %></td>
         <td><%= bill.amount %></td>
         <td><%= bill.aasm_state %></td>
-        <td></td>
+        <td><%= bill.created_by.name %></td>
+        <td><%= link_to 'Edit', edit_bill_path(bill), class: 'btn'%> | <%= link_to 'Show Details', transactions_bill_path(bill), class: 'btn'%> | <%= link_to 'Delete', bill_path(bill), class: 'btn', method: :delete%></td>
       </tr>
     <% end %>
   </tbody>

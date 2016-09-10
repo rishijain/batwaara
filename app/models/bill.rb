@@ -1,7 +1,7 @@
 class Bill < ActiveRecord::Base
   include AASM
 
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
   has_many :users, through: :bill_users
   has_many :bill_users
   belongs_to :event

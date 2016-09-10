@@ -1,9 +1,12 @@
 <%= simple_form_for(@bill, url: bill_url) do |f| %>
   <p>Event name: <%= @bill.event.name %></p>
   <p>Event date: <%= datetime_modifier(@bill.event.created_at) %></p>
+  <p>Bill Amount: <%= @bill.amount %></p>
   <%= f.simple_fields_for :transactions do |transaction| %>
     <%= transaction.input :amount_paid %>
     <%= transaction.input :user_id, collection: @bill.users.collect{|d| [d.name, d.id]} %>
   <% end %>
-  <%= f.submit %>
+  <%= f.button :submit, 'Update Transactions', class: 'btn btn-success' %>
+  <%= link_to 'Edit Bill', edit_bill_path(@bill), class: 'btn btn-primary'%>
+  <%= link_to 'Cancel', bills_path, class: 'btn btn-warning'%>
 <% end %>

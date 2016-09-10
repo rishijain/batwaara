@@ -1,4 +1,9 @@
+<%= f.hidden_field :created_by_id, value: current_user.id %>
 <%= f.input :event_id, collection: Event.all.collect{|d| [d.name, d.id]} %>
 <%= f.input :amount %>
 <%= f.collection_check_boxes :user_ids, User.all.collect{|d| [d.name, d.id]}, :last, :first %>
-<%= f.button :submit %>
+<%= f.button :submit, 'Save',class: 'btn btn-success' %>
+<% if !@bill.new_record?%>
+  <%= link_to 'Transactions', transactions_bill_path(@bill), class: 'btn btn-primary'%>
+<% end %>
+<%= link_to 'Cancel', bills_path, class: 'btn btn-warning'%>
