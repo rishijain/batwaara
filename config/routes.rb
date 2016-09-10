@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :bills do
     member do
       get 'transactions'
+      get 'finalise_bill'
+      post 'approve_bill'
     end
   end
 

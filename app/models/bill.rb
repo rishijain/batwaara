@@ -9,6 +9,8 @@ class Bill < ActiveRecord::Base
 
   accepts_nested_attributes_for :transactions
 
+  validate :validate_bill_amount, if: -> {aasm_state_changed? && approved?}
+
   aasm do
 
     state :draft, initial: true
@@ -25,4 +27,11 @@ class Bill < ActiveRecord::Base
     paid_to_id ? User.find(paid_to_id) : nil
   end
 
+  def validate_bill_amount
+    p "{'1'*100}"
+    if transactions.sum(:amount_paid) != amount
+      p "{'2'*100}"
+      errors.add(:amount, "Total transaction value should be equal to bill amount.")
+    end
+  end
 end

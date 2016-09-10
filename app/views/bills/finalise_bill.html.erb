@@ -1,0 +1,17 @@
+<p>Event name: <%= @bill.event.name %></p>
+<p>Event date: <%= datetime_modifier(@bill.event.created_at) %></p>
+<p>Bill Amount: <%= @bill.amount %></p>
+
+
+<% @bill.transactions.each do |transaction|%>
+  <p><%= transaction.user.name%> paid <%= transaction.amount_paid %></p>
+<% end %>
+
+<% if @bill.draft? %>
+  <%= link_to 'Approve Bill', approve_bill_bill_path(@bill), class: 'btn btn-success', method: :post%>
+  <%= link_to 'Edit Bill', edit_bill_path(@bill), class: 'btn btn-primary'%>
+  <%= link_to 'Transactions', transactions_bill_path(@bill), class: 'btn btn-info'%>
+<% else %>
+  <%= link_to 'Back', bills_path, class: 'btn btn-info'%>
+
+<% end %>

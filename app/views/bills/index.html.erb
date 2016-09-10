@@ -20,7 +20,11 @@
         <td><%= bill.amount %></td>
         <td><%= bill.aasm_state %></td>
         <td><%= bill.created_by.name %></td>
-        <td><%= link_to 'Edit', edit_bill_path(bill), class: 'btn'%> | <%= link_to 'Show Details', transactions_bill_path(bill), class: 'btn'%> | <%= link_to 'Delete', bill_path(bill), class: 'btn', method: :delete%></td>
+        <% if bill.draft? %>
+          <td><%= link_to 'Edit', edit_bill_path(bill), class: 'btn'%> | <%= link_to 'Transactions', transactions_bill_path(bill), class: 'btn'%> | <%= link_to 'Delete', bill_path(bill), class: 'btn', method: :delete %> | <%= link_to 'Approve Bill', finalise_bill_bill_path(bill), class: 'btn'%> </td>
+        <% else %>
+          <td><%= link_to 'Show Details', finalise_bill_bill_path(bill), class: 'btn' %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

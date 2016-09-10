@@ -6,4 +6,5 @@
 <% if !@bill.new_record?%>
   <%= link_to 'Transactions', transactions_bill_path(@bill), class: 'btn btn-primary'%>
 <% end %>
+<%= link_to 'Finalise Bill', finalise_bill_bill_path(@bill), class: 'btn btn-danger'%>
 <%= link_to 'Cancel', bills_path, class: 'btn btn-warning'%>

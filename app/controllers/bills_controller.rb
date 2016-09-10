@@ -47,10 +47,14 @@ class BillsController < ApplicationController
     redirect_to bills_path
   end
 
-  def finalise_bill
-  end
-
   def approve_bill
+    if @bill.approve!
+      flash[:success] = 'Bill successfulyy approved.'
+      redirect_to bills_path
+    else
+      flash[:danger] = @bill.errors.messages.values[0].join(',')
+      render 'edit'
+    end
   end
 
   private
