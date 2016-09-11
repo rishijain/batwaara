@@ -79,4 +79,34 @@ class ExpenseCalculatorTest < ActiveSupport::TestCase
     l = Ledger.find_by(from_user_id: @anthony.id, to_user_id: @akbar.id)
     assert l.amount == 60.0
   end
+
+  test "should return correct ledger entries for a multiples bills among 2 users" do
+    basic_users_setup
+
+    #after this 1st bill, amar will owe akbar 100.0 bucks
+    bill = Bill.create(event_id: events(:lunch).id, created_by_id: @amar.id, amount: 200, user_ids: [@akbar.id, @amar.id])
+    Transaction.create(bill_id: bill.id, user_id: @akbar.id, amount_paid: 200)
+    Transaction.create(bill_id: bill.id, user_id: @amar.id, amount_paid: 0)
+    ExpenseCalculator.new(bill.id).manage
+    assert Ledger.count == 1
+    l = Ledger.find_by(from_user_id: @amar.id, to_user_id: @akbar.id)
+    assert l.amount == 100.0
+
+    #after this 2nd bill, amar wil owe akbar total 300.0 bucks
+    bill = Bill.create(event_id: events(:lunch).id, created_by_id: @amar.id, amount: 400, user_ids: [@akbar.id, @amar.id])
+    Transaction.create(bill_id: bill.id, user_id: @akbar.id, amount_paid: 400)
+    Transaction.create(bill_id: bill.id, user_id: @amar.id, amount_paid: 0)
+    ExpenseCalculator.new(bill.id).manage
+    assert Ledger.count == 1
+    l = Ledger.find_by(from_user_id: @amar.id, to_user_id: @akbar.id)
+    assert l.amount == 300.0
+
+    #this 3rd bill is for settlement, amar will pay 300.0 to akbar and will owe 0.0
+    bill = Bill.create(event_id: events(:settlement).id, created_by_id: @akbar.id, amount: 300.0, paid_to_id: @akbar.id, user_ids: [@amar.id])
+    Transaction.create(bill_id: bill.id, user_id: @amar.id, amount_paid: 300.0)
+    ExpenseCalculator.new(bill.id).manage
+    assert Ledger.count == 1
+    l = Ledger.find_by(from_user_id: @amar.id, to_user_id: @akbar.id)
+    assert l.amount == 0.0
+  end
 end
