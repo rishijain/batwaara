@@ -7,16 +7,22 @@
     <p>Event date: <span class="weightText"><%= datetime_modifier(@bill.event.created_at) %></span></p>
     <p>Bill Amount: <span class="weightText"><%= @bill.amount %></span></p>
     <p>Bill Added By: <span class="weightText"><%= @bill.created_by.name%></span></p>
-    <p>Members: <span class="weightText"><%= @bill.users.collect(&:name).join(', ') %> </span></p>
-    <% @bill.transactions.each_with_index do |transaction, index|%>
-      <p><%= index + 1 %>)&nbsp;<%= transaction.user.name%> paid <%= transaction.amount_paid %></p>
+    <% if @bill.event_is_settlement? %>
+      <p>Amount paid to: <span class="weightText"><%= @bill.paid_to.name%></span></p>
+    <% else %>
+      <p>Members: <span class="weightText"><%= @bill.users.collect(&:name).join(', ') %> </span></p>
+      <% @bill.transactions.each_with_index do |transaction, index|%>
+        <p><%= index + 1 %>)&nbsp;<%= transaction.user.name%> paid <%= transaction.amount_paid %></p>
+      <% end %>
     <% end %>
   </div>
   <div class="panel-body">
     <% if @bill.draft? %>
       <%= link_to 'Approve Bill', approve_bill_bill_path(@bill), class: 'btn btn-success', method: :post%>
       <%= link_to 'Edit Bill', edit_bill_path(@bill), class: 'btn btn-primary'%>
-      <%= link_to 'Edit Transactions', transactions_bill_path(@bill), class: 'btn btn-info'%>
+      <% unless is_bill_settlement?(@bill) %>
+        <%= link_to 'Edit Transactions', transactions_bill_path(@bill), class: 'btn btn-info'%>
+      <% end %>
     <% else %>
       <%= link_to 'Back', bills_path, class: 'btn btn-info'%>
     <% end %>

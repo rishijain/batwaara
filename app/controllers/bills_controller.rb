@@ -13,7 +13,11 @@ class BillsController < ApplicationController
   def create
     @bill = Bill.new bill_params
     if @bill.save
-      redirect_to transactions_bill_path(@bill)
+      if @bill.event_is_settlement?
+        redirect_to bills_path
+      else
+        redirect_to transactions_bill_path(@bill)
+      end
     else
       render 'new'
     end
@@ -23,6 +27,10 @@ class BillsController < ApplicationController
   end
 
   def transactions
+    if @bill.event_is_settlement?
+      flash[:info] = 'Transaction page does not exist for settlement bills.'
+      redirect_to bills_path
+    end
     @bill.user_ids.each do |user_id|
       @bill.transactions.find_or_create_by(user_id: user_id)
     end
@@ -49,6 +57,7 @@ class BillsController < ApplicationController
 
   def approve_bill
     if @bill.approve!
+      create_transactions_for_settlement_bill if @bill.event_is_settlement?
       ExpenseCalculator.new(@bill.id).manage
       flash[:success] = 'Bill successfulyy approved.'
       redirect_to bills_path
@@ -60,12 +69,16 @@ class BillsController < ApplicationController
 
   private
 
+  def create_transactions_for_settlement_bill
+    Transaction.create!(bill_id: @bill.id, user_id: current_user.id, amount_paid: @bill.amount)
+  end
+
   def get_bill
     @bill = Bill.find params[:id]
   end
 
   def bill_params
-    params.fetch(:bill, {}).permit(:event_id, :amount, :created_by_id, user_ids: [], :transactions_attributes => [:amount_paid, :user_id, :id])
+    params.fetch(:bill, {}).permit(:event_id, :amount, :created_by_id, :paid_to_id, user_ids: [], :transactions_attributes => [:amount_paid, :user_id, :id])
   end
 
 end
