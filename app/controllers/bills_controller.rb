@@ -3,7 +3,7 @@ class BillsController < ApplicationController
   before_filter :get_bill, only: [:edit, :update, :destroy, :transactions, :finalise_bill, :approve_bill]
 
   def index
-    @bills = (current_user.bills + Bill.where(created_by: current_user)).uniq
+    @bills = (current_user.bills + Bill.where(created_by: current_user) + current_user.settlement_bills).uniq
   end
 
   def new

@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   has_many :bills, through: :bill_users
   has_many :bill_users
 
+  def settlement_bills
+    Bill.where(paid_to_id: id)
+  end
 =begin
   def bills
     Bill.where("'#{id}' = ANY (member_ids)")
