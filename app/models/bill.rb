@@ -36,10 +36,6 @@ class Bill < ActiveRecord::Base
     end
   end
 
-  def event_name
-    Event.where(id: event_id).first.try(:name)
-  end
-
   def event_is_settlement?
     Event.where(id: event_id).first.try(:name) == 'Settlement'
   end

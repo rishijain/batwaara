@@ -13,10 +13,5 @@ class User < ActiveRecord::Base
   def settlement_bills
     Bill.where(paid_to_id: id)
   end
-=begin
-  def bills
-    Bill.where("'#{id}' = ANY (member_ids)")
-  end
-=end
 
 end

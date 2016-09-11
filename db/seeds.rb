@@ -10,9 +10,9 @@
   Event.create(name: event_name)
 end
 
-event = Event.find_by(name: 'Lunch')
 
 =begin
+event = Event.find_by(name: 'Lunch')
 b = Bill.create(event_id: event.id, member_ids: [1,2,3,4], amount: 400)
 t = Transaction.create(user_id: 1, amount_paid: 140, bill_id: b.id)
 t = Transaction.create(user_id: 2, amount_paid: 260, bill_id: b.id)
