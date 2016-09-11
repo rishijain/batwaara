@@ -24,7 +24,7 @@ class BillsController < ApplicationController
 
   def transactions
     @bill.user_ids.each do |user_id|
-      @bill.transactions.find_or_initialize_by(user_id: user_id)
+      @bill.transactions.find_or_create_by(user_id: user_id)
     end
   end
 

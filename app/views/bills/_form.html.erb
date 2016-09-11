@@ -1,9 +1,9 @@
 <div class="panel-body">
-  <%= f.hidden_field :created_by_id, value: current_user.id %>
+  <%= f.hidden_field :created_by_id, value: current_user.id, required: true %>
 </div>
 
 <div class="panel-body">
-  <%= f.input :event_id, collection: Event.all.collect{|d| [d.name, d.id]} %>
+  <%= f.input :event_id, collection: Event.all.collect{|d| [d.name, d.id]}, required: true %>
 </div>
 
 <div class="panel-body">
@@ -12,7 +12,7 @@
 
 <div class="panel-body">
   <p class='weightText'>Members</p>
-  <%= f.collection_check_boxes :user_ids, User.all.collect{|d| [d.name, d.id]}, :last, :first%>
+  <%= f.collection_check_boxes :user_ids, User.all.collect{|d| [d.name, d.id]}, :last, :first, required: true%>
 </div>
 
 <div class="panel-body">

@@ -9,6 +9,9 @@ class Bill < ActiveRecord::Base
 
   accepts_nested_attributes_for :transactions
 
+  validates :event_id, presence: true
+  validates :user_ids, presence: true
+  validates :amount, presence: true
   validate :validate_bill_amount, if: -> {aasm_state_changed? && approved?}
 
   aasm do
@@ -34,4 +37,5 @@ class Bill < ActiveRecord::Base
       errors.add(:amount, "Total transaction value should be equal to bill amount.")
     end
   end
+
 end
