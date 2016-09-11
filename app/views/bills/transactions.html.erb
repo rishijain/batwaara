@@ -24,9 +24,9 @@
 
     <%= f.simple_fields_for :transactions do |transaction| %>
       <div class="panel-body">
+        <%= transaction.input :user_id, collection: @bill.users.collect{|d| [d.name, d.id]}, disabled: true%>
+        <%= transaction.hidden_field :user_id, collection: @bill.users.collect{|d| [d.name, d.id]}%>
         <%= transaction.input :amount_paid %>
-
-        <%= transaction.input :user_id, collection: @bill.users.collect{|d| [d.name, d.id]} %>
       </div>
     <% end %>
 
