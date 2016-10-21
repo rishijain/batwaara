@@ -8,6 +8,7 @@
     <p>Bill Amount: <span class="weightText"><%= @bill.amount %></span></p>
     <p>Bill Added By: <span class="weightText"><%= @bill.created_by.name%></span></p>
     <p>Members: <span class="weightText"><%= @bill.users.collect(&:name).join(', ') %> </span></p>
+    <p>Comments: <span class="weightText"><%= @bill.comment %> </span></p>
   </div>
   <div class="panel-body">
     <%= link_to 'Edit Bill', edit_bill_path(@bill), class: 'btn btn-primary'%>
