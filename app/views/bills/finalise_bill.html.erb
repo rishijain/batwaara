@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
     <p>Event name: <span class="weightText"><%= @bill.event.name %></span></p>
-    <p>Event date: <span class="weightText"><%= datetime_modifier(@bill.event.created_at) %></span></p>
+    <p>Event date: <span class="weightText"><%= datetime_modifier(@bill.created_at) %></span></p>
     <p>Bill Amount: <span class="weightText"><%= @bill.amount %></span></p>
     <p>Bill Added By: <span class="weightText"><%= @bill.created_by.name%></span></p>
     <% if @bill.event_is_settlement? %>
