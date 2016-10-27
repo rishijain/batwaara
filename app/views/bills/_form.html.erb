@@ -20,6 +20,11 @@
 </div>
 
 <div class="panel-body">
+  <label>Comment</label>
+  <%= f.text_area :comment %>
+</div>
+
+<div class="panel-body">
   <%= f.button :submit, 'Save',class: 'btn btn-success' %>
   <% if !@bill.new_record?%>
     <% unless is_bill_settlement?(@bill) %>

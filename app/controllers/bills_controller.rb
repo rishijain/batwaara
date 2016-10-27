@@ -78,7 +78,7 @@ class BillsController < ApplicationController
   end
 
   def bill_params
-    params.fetch(:bill, {}).permit(:event_id, :amount, :created_by_id, :paid_to_id, user_ids: [], :transactions_attributes => [:amount_paid, :user_id, :id])
+    params.fetch(:bill, {}).permit(:event_id, :amount, :created_by_id, :paid_to_id, :comment, user_ids: [], :transactions_attributes => [:amount_paid, :user_id, :id])
   end
 
 end

@@ -15,6 +15,7 @@
         <p><%= index + 1 %>)&nbsp;<%= transaction.user.name%> paid <%= transaction.amount_paid %></p>
       <% end %>
     <% end %>
+    <p>Comments: <span class="weightText"><%= @bill.comment%></span></p>
   </div>
   <div class="panel-body">
     <% if @bill.draft? %>
